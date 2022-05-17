@@ -1,0 +1,36 @@
+#include "mi_asignatura.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_NOMBRE_ASIGNATURA 80
+#define MAX_TABLA_ESTUDIANTES 10 
+
+int anadir_estudiante(struct asignatura *asignatura,char *nombre_estudiante,int edad){
+    if(asignatura->numero_estudiantes==MAX_TABLA_ESTUDIANTES){
+        return -1;
+    }else{
+        struct estudiante *aux=asignatura->estudiantes;
+        for(int i=0;i<asignatura->numero_estudiantes;i++){
+            aux++;
+        }
+        aux->nombre = (char *)malloc(MAX_NOMBRE_ESTUDIANTE*sizeof(char));
+        strcpy(aux->nombre, nombre_estudiante);
+        aux->edad   = edad;
+        aux->notas = NULL;
+        asignatura->numero_estudiantes++;
+    }
+    return 0;
+}
+
+void mostrar_estudiantes_con_edad (struct asignatura *asignatura,int desde_edad, int hasta_edad){
+    struct estudiante *aux=asignatura->estudiantes;
+    if(aux!=NULL){
+        for(int i=0;i<asignatura->numero_estudiantes;i++){
+            int k = aux->edad;
+            if(k>=desde_edad&&k<=hasta_edad){
+                printf("%d %s\n",k,aux->nombre);
+            }
+            aux++;
+        }
+    }
+}
